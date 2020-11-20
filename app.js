@@ -35,6 +35,19 @@ app.get('/', function(req, res){
 });
 
 
+app.post('/login', function(req,res){
+	if (req.body.username == "admin" && req.body.password == "password"){
+		res.json({success : true,
+							id: 'v-pills-settings-tab',
+							head: "<a class='nav-link' id='v-pills-settings-tab' data-toggle='pill' href='#v-pills-settings' role='tab' aria-controls='v-pills-settings' aria-selected='false'>Page 3</a>",
+							content: "<div class='tab-pane fade' id='v-pills-settings' role='tabpanel' aria-labelledby='v-pills-settings-tab'> <iframe src='https://lockee.fr/o/0jTj7bGd?noft' height='500' width='350' frameborder='0' ></iframe></div>"
+		});
+	} else {
+		res.json({success : false});
+	};
+});
+
+
 /*app.get('/visualisation', function(req, res){
 	res.render("visualisation")
 });
