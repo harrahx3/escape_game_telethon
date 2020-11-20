@@ -1,4 +1,6 @@
-function send_form(username, password){
+$("#login_form").submit(function(event){
+  event.preventDefault();
+
   $.post('/login', {
     username : $('#usr').val(),
     password : $('#psw').val()
@@ -19,4 +21,4 @@ function send_form(username, password){
     //  $("#error_message").html(html_message);
     };
   });
-}
+})
