@@ -4,6 +4,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 
 const path = require('path');
+__dirname = path.resolve();
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({
