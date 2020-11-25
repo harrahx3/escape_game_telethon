@@ -53,31 +53,40 @@ app.post('/start', function(req, res){
 	console.log("start");
 	console.log(req.body);
 	console.log(req.body.nick);
+	if (ssn.nick) {
+		req.body.nick = ssn.nick;
+		console.log("nick exist");
+	}
+	else {
+		console.log("nick false");
+	}
 	var nick = xss(req.body.nick);
 	console.log(nick);
 	ssn.nick = nick;
-	if (nick=="") {
+	if (!ssn.nick || ssn.nick=="") {
 		res.redirect(302, '/');
 	}
-	ejs.renderFile("views/part1.ejs", [], null, function(err, html){
-		// html => Rendered HTML string
-		if (err) {
-			console.log(err);
-			res.sendStatus(500);
-		}
-		else {
-		//	console.log(html);
-		console.log("start page");
-			connection.query('INSERT INTO games (nick, start_time, end_time, time) VALUES (?, NOW(), NOW(), 0)', [xss(ssn.nick)], function(error, results){
-				if (error) {
-					res.status(500).send("Erreur base de données: " + error );
-				} else {
-					console.log("game add to db");
-					res.end(html);
-				}
-			});
-		}
-	});
+	else {
+		ejs.renderFile("views/part1.ejs", [], null, function(err, html){
+			// html => Rendered HTML string
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else {
+			//	console.log(html);
+			console.log("start page");
+				connection.query('INSERT INTO games (nick, start_time, end_time, time) VALUES (?, NOW(), NOW(), 0)', [xss(ssn.nick)], function(error, results){
+					if (error) {
+						res.status(500).send("Erreur base de données: " + error );
+					} else {
+						console.log("game add to db");
+						res.end(html);
+					}
+				});
+			}
+		});
+	}
 });
 
 // Valider la partie 1
@@ -103,6 +112,7 @@ app.post('/rep_form', function(req,res){
 }
 });*/
 } else {
+	req.body.nick = ssn.nick;
 	res.redirect(307, '/start');
 	//res.statusCode=302;
 	//res.setHeader('Location','/start');
