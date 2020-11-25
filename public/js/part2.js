@@ -19,8 +19,8 @@ $("#login_form").submit(function(event){
     } else {
       console.log("not success");
       $("#login_form_result").html("<div class='alert alert-warning' role='alert'>Mauvais mot de passe ou nom!</div>");
-    //  var html_message = '<div class="alert alert-danger" role="alert" id="error_message">' + 'Identifiant ou mot de passe incorrect' + '</div>'
-    //  $("#error_message").html(html_message);
+      //  var html_message = '<div class="alert alert-danger" role="alert" id="error_message">' + 'Identifiant ou mot de passe incorrect' + '</div>'
+      //  $("#error_message").html(html_message);
     };
   });
 })

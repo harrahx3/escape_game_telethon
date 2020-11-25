@@ -1,57 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Escape CLT</title>
-    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="/css/home.css" href="/css/master.css">
-  </head>
-  <body class="text-center">
-     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-     <header class="masthead mb-auto">
-       <div class="inner">
-         <h3 class="masthead-brand">Cover</h3>
-         <nav class="nav nav-masthead justify-content-center">
-           <a class="nav-link active" href="#">Home</a>
-           <a class="nav-link" href="#">Features</a>
-           <a class="nav-link" href="#">Contact</a>
-         </nav>
-       </div>
-     </header>
+<head>
+  <meta charset="utf-8">
+  <title>Escape CLT</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="/css/home.css" href="/css/master.css">
+</head>
+<body class="text-center">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">Cover</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link active" href="#">Home</a>
+          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="#">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-     <main role="main" class="inner cover">
-       <div class="row text-center" style="width:100%;">
-         <div class="col-6">
-           <img src="images/logo_eclair.png" alt="logo d'Éclair" width="300">
-         </div>
-         <div class="col-6">
-           <img src="images/logo_clt.png" alt="logo de CLT" width="300">
-         </div>
-       </div>
-       <h1 class="cover-heading">Escape game en ligne du telethon</h1>
-       <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-       <p class="lead">
-         <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-       </p>
-       <form id="start_form">
-         <div class="form-group">
-           <label for="username">Surnom</label>
-           <input type="text" class="form-control" id="usr" aria-describedby="username">
-         </div>
-         <button type="submit" class="btn btn-primary">Commencer</button>
-       </form>
-     </main>
+    <main role="main" class="inner cover">
+      <div class="row text-center" style="width:100%;">
+        <div class="col-6">
+          <img src="images/logo_eclair.png" alt="logo d'Éclair" width="200">
+        </div>
+        <div class="col-6">
+          <img src="images/logo_clt.png" alt="logo de CLT" width="200">
+        </div>
+      </div>
 
-     <footer class="mastfoot mt-auto">
-       <div class="inner">
-         <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-       </div>
-     </footer>
-   </div>
+      <!--   <img src="images/logo_eclair.png" class="rounded float-left" alt="logo d'Éclair" width="200">
+      <img src="images/logo_clt.png" class="rounded float-right" alt="logo d'Éclair" width="200">
+    -->
+    <h1 class="cover-heading">Escape game en ligne du telethon</h1>
+    <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
 
-    <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/home.js" charset="utf-8"></script>
+    <form id="start_form" method="post" action="/start">
+      <div class="form-group">
+        <label for="username">Surnom: </label>
+        <input type="text" id="usr" aria-describedby="username" name="nick">
+      </div>
+      <br>
+      <button type="submit" class="btn btn-lg btn-primary">Commencer</button>
+    </form>
+  </main>
 
-  </body>
+  </div>
+
+  <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/js/home.js" charset="utf-8"></script>
+
+</body>
 </html>
