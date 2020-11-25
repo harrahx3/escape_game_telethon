@@ -7,10 +7,9 @@ var session = require('express-session');
 const fs = require('fs');
 var db_mdp;
 var db_usr;
-var mysql      = require('mysql'); //package mysql
+var mysql = require('mysql'); //package mysql
 var connection;
-
-
+//var url = require(‘url‘);
 
 
 const path = require('path');
@@ -36,7 +35,13 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){
 	ssn = req.session;
 	//	var a= render("home");
-	ejs.renderFile("views/home.ejs", [], null, function(err, html){
+	var msg;
+	console.log(req.param);
+	if (req.param('alreadyuse')) {
+		msg = "Error: il ya déjà une partie enregistrée sous ce nom";
+	}
+	console.log("render home with msg= " + msg);
+	ejs.renderFile("views/home.ejs", {msg: msg}, null, function(err, html){
 		// str => Rendered HTML string
 		if (err) {
 			console.log(err);
@@ -58,7 +63,7 @@ app.post('/start', function(req, res){
 	console.log(req.body);
 	console.log(req.body.nick);
 	if (ssn.nick) {
-		req.body.nick = ssn.nick;
+		//req.body.nick = ssn.nick;
 		console.log("nick exist");
 	}
 	else {
@@ -80,15 +85,26 @@ app.post('/start', function(req, res){
 			else {
 				//connection.connect();
 				//	console.log(html);
-				console.log("start page");
-				connection.query('INSERT INTO games (nick, start_time, end_time, time) VALUES (?, NOW(), NOW(), 0)', [xss(ssn.nick)], function(error, results){
-					if (error) {
-						res.status(500).send("Erreur base de données: " + error );
+				connection.query('SELECT * FROM games WHERE nick=?', [xss(ssn.nick)], function(e, r) {
+					if (e) {
+						console.log("Erreur base de données: " + e);
+						res.sendStatus(500);
+					} else if (r.length==0){
+							console.log("start page");
+							connection.query('INSERT INTO games (nick, start_time, end_time, time) VALUES (?, NOW(), NOW(), 0)', [xss(ssn.nick)], function(error, results){
+								if (error) {
+									console.log("Erreur base de données: " + error);
+									res.sendStatus(500);
+								} else {
+									console.log("game add to db");
+									res.end(html);
+								}
+							});
 					} else {
-						console.log("game add to db");
-						res.end(html);
+						res.redirect(302, '/?alreadyuse=true');
+						//res.end("Erreur: Il y a déjà une partie enregistrée sous ce nom");
 					}
-				});
+				})
 			}
 		});
 	}
@@ -101,9 +117,7 @@ app.post('/rep_form', function(req,res){
 	console.log(req.body);
 	req.body.reponse = xss(req.body.reponse);
 	if (req.body.reponse == "bonne reponse"){
-		res.statusCode=302;
-		res.setHeader('Location','/siteperso');
-		return res.end();
+		res.redirect(302, '/siteperso');
 		/*ejs.renderFile("views/part2.ejs", [], null, function(err, html){
 		// str => Rendered HTML string
 		if (err) {

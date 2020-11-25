@@ -41,6 +41,10 @@
         <input type="text" id="usr" aria-describedby="username" name="nick">
       </div>
       <br>
+      <% if(msg) {%>
+        <div class='alert alert-warning' role='alert'><%= msg %></div>
+      <br>
+      <% } %>
       <button type="submit" class="btn btn-lg btn-primary">Commencer</button>
     </form>
   </main>
