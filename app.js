@@ -3,11 +3,15 @@ var ejs = require('ejs');
 var app = express();
 var port = process.env.PORT || 5000;
 var xss = require('xss');
-var session = require('express-session')
-
+var session = require('express-session');
+const fs = require('fs');
+var db_mdp;
+var db_usr;
 var mysql      = require('mysql'); //package mysql
-var connection = mysql.createConnection({  host     : 'localhost',  user     : 'hyacinthe',  password : '2699Cendrennes@',  database : 'clt'});
-connection.connect();
+var connection;
+
+
+
 
 const path = require('path');
 __dirname = path.resolve();
@@ -74,8 +78,9 @@ app.post('/start', function(req, res){
 				res.sendStatus(500);
 			}
 			else {
-			//	console.log(html);
-			console.log("start page");
+				//connection.connect();
+				//	console.log(html);
+				console.log("start page");
 				connection.query('INSERT INTO games (nick, start_time, end_time, time) VALUES (?, NOW(), NOW(), 0)', [xss(ssn.nick)], function(error, results){
 					if (error) {
 						res.status(500).send("Erreur base de données: " + error );
@@ -117,8 +122,9 @@ app.post('/rep_form', function(req,res){
 	//res.statusCode=302;
 	//res.setHeader('Location','/start');
 	//return res.end();
-}
+	}
 });
+
 
 // partie 2
 app.get('/siteperso', function(req, res){
@@ -144,8 +150,8 @@ app.post('/login', function(req,res){
 	ssn = req.session;
 	req.body.username = xss(req.body.username);
 	req.body.password = xss(req.body.password);
-console.log(req.body.username);
-console.log(req.body.password);
+	console.log(req.body.username);
+	console.log(req.body.password);
 	if (req.body.username == "admin" && req.body.password == "password"){
 		res.json({success : true,
 			id: 'v-pills-settings-tab',
@@ -190,4 +196,24 @@ console.log(req.body.password);
 	}
 })
 
-app.listen(port);
+fs.readFile("mdp", 'utf8', function(err, data){
+//	console.log(err);
+	db_mdp=data.split(/\r?\n/)[0];
+	fs.readFile("usr", 'utf8', function (error, data_usr) {
+		db_usr=data_usr.split(/\r?\n/)[0];
+			console.log(db_usr + db_mdp);
+		//	db_usr='hyacinthe';
+		//	db_mdp='2699Cendrennes@';
+		connection = mysql.createConnection({  host     : 'localhost',  user     : db_usr,  password : db_mdp,  database : 'clt'});
+		connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('connected as id ' + connection.threadId);
+});
+	app.listen(port);
+
+	})
+})
