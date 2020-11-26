@@ -55,6 +55,29 @@ app.get('/', function(req, res){
 	});
 });
 
+/*app.get('/dialogue_debut', function(req, res){
+	ssn = req.session;
+	//	var a= render("home");
+	var msg;
+	console.log(req.param);
+	if (req.param('alreadyuse')) {
+		msg = "Error: il ya déjà une partie enregistrée sous ce nom";
+	}
+	console.log("render home with msg= " + msg);
+	ejs.renderFile("views/home.ejs", {msg: msg}, null, function(err, html){
+		// str => Rendered HTML string
+		if (err) {
+			console.log(err);
+			res.sendStatus(500);
+		}
+		else {
+			//console.log(html);
+			console.log("get /");
+			res.end(html);
+		}
+	});
+});*/
+
 // Demarer une partie
 app.post('/start', function(req, res){
 	ssn = req.session;
@@ -76,7 +99,7 @@ app.post('/start', function(req, res){
 		res.redirect(302, '/');
 	}
 	else {
-		ejs.renderFile("views/part1.ejs", [], null, function(err, html){
+		ejs.renderFile("views/dialogue_debut.ejs", [], null, function(err, html){
 			// html => Rendered HTML string
 			if (err) {
 				console.log(err);
@@ -109,6 +132,21 @@ app.post('/start', function(req, res){
 		});
 	}
 });
+
+app.get('/part1', function(req, res){
+	ssn = req.session;
+	ejs.renderFile("views/part1.ejs", [], null, function(err, html){
+		// html => Rendered HTML string
+		if (err) {
+			console.log(err);
+			res.sendStatus(500);
+		}
+		else {
+			res.end(html);
+		}
+
+	})
+})
 
 // Valider la partie 1
 app.post('/rep_form', function(req,res){
