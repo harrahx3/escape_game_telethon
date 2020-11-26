@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Escape CLT</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="/css/page3.css" href="/css/master.css">
+</head>
+
+<body>
+
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+
+    <main role="main" class="inner cover">
+      <h1 class="cover-heading">Discution avec Dité</h1>
+
+      <ul class="list-unstyled" style="width: 800px;">
+        <li class="media" style="width: 500px;">
+          <img src="images/logo_clt.png" class="mr-3" width="100" alt="...">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">Autre</h5>
+            <h6 class="mt-0 mb-1">01/01/2050 00:00</h6>
+            Je ne me souviens plus très bien mais tu peux chercher ici rencontrés à un colloque, qu’il faisait chaud et humide, qu’elle venait présenter sa recherche sur la maladie de Lyme
+          </div>
+        </li>
+        <br>
+        <li class="media " style="width: 500px; float: right;">
+          <div class="media-body" style="float: right" >
+            <h5 class="mt-0 mb-1" >toi</h5>
+            <h6 class="mt-0 mb-1" >01/01/2050 00:01</h6>
+            lipsum
+         </div>
+          <img src="images/logo_eclair.png"  width="100" alt="...">
+        </li>
+        <br>
+      </ul>
+
+      <form id="check_colloque" method="post" action="/check_colloque">
+        <label for="nom">nom</label> <input type="text" id="nom"  name="nom"> <br>
+        <label for="date">date</label> <input type="text" id="date"  name="date"> <br>
+        <label for="lieu">lieu</label> <input type="text" id="lieu"  name="lieu"> <br>
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+      </form>
+    </main>
+
+    <div id="result_div"></div>
+
+
+  </div>
+
+  <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/js/page3.js" charset="utf-8"></script>
+
+</body>
+</html>

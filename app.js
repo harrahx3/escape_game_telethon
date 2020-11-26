@@ -41,7 +41,7 @@ app.get('/', function(req, res){
 		msg = "Error: il ya déjà une partie enregistrée sous ce nom";
 	}
 	console.log("render home with msg= " + msg);
-	ejs.renderFile("views/home.ejs", {msg: msg}, null, function(err, html){
+	ejs.renderFile("views/page1.ejs", {msg: msg}, null, function(err, html){
 		// str => Rendered HTML string
 		if (err) {
 			console.log(err);
@@ -55,34 +55,12 @@ app.get('/', function(req, res){
 	});
 });
 
-/*app.get('/dialogue_debut', function(req, res){
-	ssn = req.session;
-	//	var a= render("home");
-	var msg;
-	console.log(req.param);
-	if (req.param('alreadyuse')) {
-		msg = "Error: il ya déjà une partie enregistrée sous ce nom";
-	}
-	console.log("render home with msg= " + msg);
-	ejs.renderFile("views/home.ejs", {msg: msg}, null, function(err, html){
-		// str => Rendered HTML string
-		if (err) {
-			console.log(err);
-			res.sendStatus(500);
-		}
-		else {
-			//console.log(html);
-			console.log("get /");
-			res.end(html);
-		}
-	});
-});*/
 
 // Demarer une partie
-app.post('/start', function(req, res){
+app.post('/start', function(req, res) {
 	ssn = req.session;
 	//	var a= render("home");
-	console.log("start");
+	console.log("post start");
 	console.log(req.body);
 	console.log(req.body.nick);
 	if (ssn.nick) {
@@ -97,15 +75,13 @@ app.post('/start', function(req, res){
 	ssn.nick = nick;
 	if (!ssn.nick || ssn.nick=="") {
 		res.redirect(302, '/');
-	}
-	else {
-		ejs.renderFile("views/dialogue_debut.ejs", [], null, function(err, html){
+	} else {
+		ejs.renderFile("views/page2.ejs", [], null, function(err, html){
 			// html => Rendered HTML string
 			if (err) {
 				console.log(err);
 				res.sendStatus(500);
-			}
-			else {
+			}	else {
 				//connection.connect();
 				//	console.log(html);
 				connection.query('SELECT * FROM games WHERE nick=?', [xss(ssn.nick)], function(e, r) {
@@ -113,16 +89,16 @@ app.post('/start', function(req, res){
 						console.log("Erreur base de données: " + e);
 						res.sendStatus(500);
 					} else if (r.length==0){
-							console.log("start page");
-							connection.query('INSERT INTO games (nick, start_time, end_time, time) VALUES (?, NOW(), NOW(), 0)', [xss(ssn.nick)], function(error, results){
-								if (error) {
-									console.log("Erreur base de données: " + error);
-									res.sendStatus(500);
-								} else {
-									console.log("game add to db");
-									res.end(html);
-								}
-							});
+						console.log("start page");
+						connection.query('INSERT INTO games (nick, start_time, end_time, time) VALUES (?, NOW(), NOW(), 0)', [xss(ssn.nick)], function(error, results){
+							if (error) {
+								console.log("Erreur base de données: " + error);
+								res.sendStatus(500);
+							} else {
+								console.log("game add to db");
+								res.end(html);
+							}
+						});
 					} else {
 						res.redirect(302, '/?alreadyuse=true');
 						//res.end("Erreur: Il y a déjà une partie enregistrée sous ce nom");
@@ -133,53 +109,78 @@ app.post('/start', function(req, res){
 	}
 });
 
-app.get('/part1', function(req, res){
+app.get('/page3', function(req, res) {
+	console.log("get page3");
 	ssn = req.session;
-	ejs.renderFile("views/part1.ejs", [], null, function(err, html){
+	ejs.renderFile("views/page3.ejs", [], null, function(err, html){
 		// html => Rendered HTML string
 		if (err) {
 			console.log(err);
 			res.sendStatus(500);
-		}
-		else {
+		} else {
 			res.end(html);
 		}
+	})
+})
 
+app.post('/check_colloque', function(req,res) {
+	console.log("post check_colloque");
+	ssn = req.session;
+	console.log("post rep_form");
+	console.log(req.body);
+	var lieu = xss(req.body.lieu);
+	var date = xss(req.body.date);
+	var nom = xss(req.body.nom);
+
+	if ((lieu=="thaïlande" || lieu=='thaïlande') && date=="01/01/2020") {
+		//res.redirect(302, '/part1');
+		res.json({success : true,
+			id: 'v-pills-settings-tab',
+			head: "<a class='nav-link' id='v-pills-settings-tab' data-toggle='pill' href='#v-pills-settings' role='tab' aria-controls='v-pills-settings' aria-selected='false'>Page 3</a>",
+			content: "<p>Cherche les coordonnées de Lucas, envoie un email, réponse automatique, chercher le numéro du labo <a href='/part1'>suite</a></p><br/><a href='/part1' class='btn btn-lg btn-primary'> Continuer </a>"
+		});
+	} else {
+		req.body.nick = ssn.nick;
+		res.redirect(302, '/page3');
+		//res.statusCode=302;
+		//res.setHeader('Location','/start');
+		//return res.end();
+	}
+});
+
+app.get('/part1', function(req, res) {
+	console.log("get part1");
+	ssn = req.session;
+	ejs.renderFile("views/page4.ejs", [], null, function(err, html){
+		// html => Rendered HTML string
+		if (err) {
+			console.log(err);
+			res.sendStatus(500);
+		} else {
+			res.end(html);
+		}
 	})
 })
 
 // Valider la partie 1
-app.post('/rep_form', function(req,res){
+app.post('/rep_form', function(req,res) {
+	console.log("post rep_form");
 	ssn = req.session;
 	console.log("post rep_form");
 	console.log(req.body);
 	req.body.reponse = xss(req.body.reponse);
-	if (req.body.reponse == "bonne reponse"){
+	if (req.body.reponse == "bonne reponse") {
 		res.redirect(302, '/siteperso');
-		/*ejs.renderFile("views/part2.ejs", [], null, function(err, html){
-		// str => Rendered HTML string
-		if (err) {
-		console.log(err);
-		res.sendStatus(500);
-	}
-	else {
-	console.log(html);
-	console.log("bonne réponse");
-	res.end(html);
-}
-});*/
-} else {
-	req.body.nick = ssn.nick;
-	res.redirect(307, '/start');
-	//res.statusCode=302;
-	//res.setHeader('Location','/start');
-	//return res.end();
+	} else {
+		req.body.nick = ssn.nick;
+		res.redirect(302, '/part1');
 	}
 });
 
 
 // partie 2
 app.get('/siteperso', function(req, res){
+	console.log("get siteperso");
 	ssn = req.session;
 	//	var a= render("home");
 	ejs.renderFile("views/part2.ejs", [], null, function(err, html){
@@ -187,8 +188,7 @@ app.get('/siteperso', function(req, res){
 		if (err) {
 			console.log(err);
 			res.sendStatus(500);
-		}
-		else {
+		} else {
 			//console.log(html);
 			console.log("get /siteperso -> part2 ok");
 			res.end(html);
@@ -215,13 +215,13 @@ app.post('/login', function(req,res){
 
 		connection.query('UPDATE games SET end_time=NOW() WHERE nick=?', [xss(ssn.nick)], function(error1, results1) {
 			if (error1) {
-				console.log("Erreue base de donnée : " + error1);
+				console.log("Erreur base de donnée : " + error1);
 				res.sendStatus(500);
 			} else {
 				console.log("update db ok");
 				connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>1 ORDER BY duration ASC LIMIT 10', function(error_get, results_get){
 					if (error_get) {
-						console.log("Erreue base de donnée : " + error_get);
+						console.log("Erreur base de donnée : " + error_get);
 						res.sendStatus(500);
 					} else {
 						console.log("get db ok");
@@ -249,23 +249,22 @@ app.post('/login', function(req,res){
 })
 
 fs.readFile("mdp", 'utf8', function(err, data){
-//	console.log(err);
+	//	console.log(err);
 	db_mdp=data.split(/\r?\n/)[0];
 	fs.readFile("usr", 'utf8', function (error, data_usr) {
 		db_usr=data_usr.split(/\r?\n/)[0];
-			console.log(db_usr + db_mdp);
+		console.log(db_usr + db_mdp);
 		//	db_usr='hyacinthe';
 		//	db_mdp='2699Cendrennes@';
 		connection = mysql.createConnection({  host     : 'localhost',  user     : db_usr,  password : db_mdp,  database : 'clt'});
 		connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
+			if (err) {
+				console.error('error connecting: ' + err.stack);
+				return;
+			}
 
-  console.log('connected as id ' + connection.threadId);
-});
-	app.listen(port);
-
+			console.log('connected as id ' + connection.threadId);
+		});
+		app.listen(port);
 	})
 })
