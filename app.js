@@ -110,9 +110,10 @@ app.post('/start', function(req, res) {
 });
 
 app.get('/page3', function(req, res) {
+	ssn = req.session;
 	console.log("get page3");
 	ssn = req.session;
-	ejs.renderFile("views/page3.ejs", [], null, function(err, html){
+	ejs.renderFile("views/page3.ejs", {nick: ssn.nick}, null, function(err, html){
 		// html => Rendered HTML string
 		if (err) {
 			console.log(err);
@@ -132,13 +133,29 @@ app.post('/check_colloque', function(req,res) {
 	var date = xss(req.body.date);
 	var nom = xss(req.body.nom);
 
-	if ((lieu=="thaïlande" || lieu=='thaïlande') && date=="01/01/2020") {
+	if ((lieu=="thaïlande" || lieu=='thailande') && date=="01/01/2020") {
 		//res.redirect(302, '/part1');
-		res.json({success : true,
-			id: 'v-pills-settings-tab',
-			head: "<a class='nav-link' id='v-pills-settings-tab' data-toggle='pill' href='#v-pills-settings' role='tab' aria-controls='v-pills-settings' aria-selected='false'>Page 3</a>",
-			content: "<p>Cherche les coordonnées de Lucas, envoie un email, réponse automatique, chercher le numéro du labo <a href='/part1'>suite</a></p><br/><a href='/part1' class='btn btn-lg btn-primary'> Continuer </a>"
-		});
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		var yyyy = today.getFullYear();
+		var hh = today.getHours();
+		var min = today.getMinutes();
+
+		var date = dd+"/"+mm+"/2050 "+hh+":"+min;
+
+		ejs.renderFile('views/page3-suite.ejs', {nick: ssn.nick, date: date}, function(err, html){
+			if (err) {
+				console.log("erreur ejs" + err);
+				res.sendStatus(500);
+			} else {
+				res.json({success : true,
+					id: 'answer1',
+					content: html
+				});
+			}
+		})
+
 	} else {
 		req.body.nick = ssn.nick;
 		res.redirect(302, '/page3');

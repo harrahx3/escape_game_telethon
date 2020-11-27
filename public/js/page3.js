@@ -9,7 +9,8 @@ $("#check_colloque").submit(function(event){
     if (response.success){
       console.log("success");
       if ($("#"+response.id).length === 0) {
-        $("#result_div").append(response.content);
+        $("#chat_ul").append(response.content);
+        $("#check_colloque").hide();
 //        $("#login_form_result").html("<div class='alert alert-success' role='alert'>Correct!</div>");
       }
       else {
@@ -18,7 +19,8 @@ $("#check_colloque").submit(function(event){
 
     } else {
       console.log("not success");
-      $("#result_div").html("<div class='alert alert-warning' role='alert'>Mauvaise réponse!</div>");
+      html = "<li class='media received'><div class='media-body'><h5 class='mt-0 mb-1'><img src='images/bulle1.svg' alt=''> Lucie Dité</h5>Ca ne me rappelle rien désolée.</div></li><br>"
+      $("#chat_ul").append(html);
       //  var html_message = '<div class="alert alert-danger" role="alert" id="error_message">' + 'Identifiant ou mot de passe incorrect' + '</div>'
       //  $("#error_message").html(html_message);
     };
