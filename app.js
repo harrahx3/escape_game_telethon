@@ -10,6 +10,7 @@ var db_usr;
 var mysql = require('mysql'); //package mysql
 var connection;
 var favicon = require('serve-favicon');
+var def_posts = require("./def_posts.js");
 //var url = require(‘url‘);
 
 
@@ -203,96 +204,18 @@ app.get('/siteperso', function(req, res){
 	console.log("get siteperso");
 	ssn = req.session;
 	//	var a= render("home");
-	var posts_2019= [{
-		date: "02/01/2019",
-		author: {
-			id: 1,
-			avatar: "logo_clt.png",
-			name: "Harrah"
-		},
-		content: "contenu",
-		comments: [{
-			author: {
-				avatar: "logo_clt.png",
-				name: "Harrah"
-			},
-			content: "com"
-		}, {
-			author: {
-				avatar: "logo_eclair.png",
-				name: "Harrah2"
-			},
-			content: "com2"
-		}]
-	}, {
-		date: "01/01",
-		author: {
-			id: 1,
-			avatar: "logo_eclair.png",
-			name: "Harrah2"
-		},
-		content: "contenu 2",
-		comments: [{
-			author: {
-				avatar: "logo_clt.png",
-				name: "Harrah"
-			},
-			content: "com3",
-			date: "01/01/2050"
-		}
-	]
-}
-];
 
-var posts_2020= [{
-	date: "02/01/2020",
-	author: {
-		id: 1,
-		avatar: "logo_clt.png",
-		name: "Harrah"
-	},
-	content: "contenu",
-	comments: [{
-		author: {
-			avatar: "logo_clt.png",
-			name: "Harrah"
-		},
-		content: "com"
-	}, {
-		author: {
-			avatar: "logo_eclair.png",
-			name: "Harrah2"
-		},
-		content: "com2"
-	}]
-}, {
-	date: "01/01",
-	author: {
-		id: 1,
-		avatar: "logo_eclair.png",
-		name: "Harrah2"
-	},
-	content: "contenu 2",
-	comments: [{
-		author: {
-			avatar: "logo_clt.png",
-			name: "Harrah"
-		},
-		content: "com3",
-		date: "01/01/2050"
-	}
-]
-}
-];
+var posts = def_posts.def_posts();
 
+// var posts_2020 = JSON.parse(fs.readFileSync('posts_2020.json', 'utf8'));
 
-ejs.renderFile("views/post.ejs", {posts: posts_2019}, function(err, html_posts_2019){
+ejs.renderFile("views/post.ejs", {posts: posts.posts_2019}, function(err, html_posts_2019){
 	// str => Rendered HTML string
 	if (err) {
 		console.log(err);
 		res.sendStatus(500);
 	} else {
-		ejs.renderFile("views/post.ejs", {posts: posts_2020}, function(err, html_posts_2020){
+		ejs.renderFile("views/post.ejs", {posts: posts.posts_2020}, function(err, html_posts_2020){
 			// str => Rendered HTML string
 			if (err) {
 				console.log(err);
