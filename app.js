@@ -66,7 +66,7 @@ app.post('/start', function(req, res) {
 	console.log("post start");
 	console.log(req.body);
 	console.log(req.body.nick);
-	if (ssn.nick) {
+	if (xss(ssn.nick)) {
 		//req.body.nick = ssn.nick;
 		console.log("nick exist");
 	}
@@ -75,7 +75,7 @@ app.post('/start', function(req, res) {
 	}
 	var nick = xss(req.body.nick);
 	console.log(nick);
-	ssn.nick = nick;
+	ssn.nick = xss(nick);
 	if (!ssn.nick || ssn.nick=="") {
 		res.redirect(302, '/');
 	} else {
@@ -116,7 +116,7 @@ app.get('/page3', function(req, res) {
 	ssn = req.session;
 	console.log("get page3");
 	ssn = req.session;
-	ejs.renderFile("views/page3.ejs", {nick: ssn.nick}, null, function(err, html){
+	ejs.renderFile("views/page3.ejs", {nick: xss(ssn.nick)}, null, function(err, html){
 		// html => Rendered HTML string
 		if (err) {
 			console.log(err);
@@ -147,7 +147,7 @@ app.post('/check_colloque', function(req,res) {
 
 		var date = dd+"/"+mm+"/2050 "+hh+":"+min;
 
-		ejs.renderFile('views/page3-suite.ejs', {nick: ssn.nick, date: date}, function(err, html){
+		ejs.renderFile('views/page3-suite.ejs', {nick: xss(ssn.nick), date: date}, function(err, html){
 			if (err) {
 				console.log("erreur ejs" + err);
 				res.sendStatus(500);
@@ -160,7 +160,7 @@ app.post('/check_colloque', function(req,res) {
 		})
 
 	} else {
-		req.body.nick = ssn.nick;
+		req.body.nick = xss(ssn.nick);
 		res.redirect(302, '/page3');
 		//res.statusCode=302;
 		//res.setHeader('Location','/start');
@@ -192,7 +192,7 @@ app.post('/rep_form', function(req,res) {
 	if (req.body.reponse == "bonne reponse") {
 		res.redirect(302, '/siteperso');
 	} else {
-		req.body.nick = ssn.nick;
+		req.body.nick = xss(ssn.nick);
 		res.redirect(302, '/part1');
 	}
 });
@@ -347,7 +347,7 @@ app.post('/login', function(req,res){
 					} else {
 						console.log("get db ok");
 						console.log(results_get);
-						ejs.renderFile("views/end.ejs", {data: results_get}, function(err, html) {
+						ejs.renderFile("views/end.ejs", {data: results_get, nick: xss(ssn.nick)}, function(err, html) {
 							if (err) {
 								console.log(err);
 								res.sendStatus(500);

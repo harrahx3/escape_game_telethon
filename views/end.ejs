@@ -1,40 +1,49 @@
 <div class="text-center tab-pane fade" id='v-pills-end' role='tabpanel' aria-labelledby='v-pills-end-tab'>
-   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-   <header class="masthead mb-auto">
-     <div class="inner">
-       <h3 class="masthead-brand">Cover</h3>
-       <nav class="nav nav-masthead justify-content-center">
-         <a class="nav-link active" href="#">Home</a>
-         <a class="nav-link" href="#">Features</a>
-         <a class="nav-link" href="#">Contact</a>
-       </nav>
-     </div>
-   </header>
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-   <main role="main" class="inner cover">
-     <div class="row text-center" style="width:100%;">
-       <div class="col-6">
-         <img src="images/logo_eclair.png" alt="logo d'Éclair" width="200">
-       </div>
-       <div class="col-6">
-         <img src="images/logo_clt.png" alt="logo de CLT" width="200">
-       </div>
-     </div>
-     <h1 class="cover-heading">Vous avez gagné!</h1>
-     <p class="lead">Si vous avez aimé occuper votre confinement avec cet escape game pensez à <a href="https://don.telethon.fr/" target="_blank">faire un don au téléthon !</a></p>
-     <h3 class="cover-heading">Classement des joueurs les plus rapides:</h3>
-      <ul>
-        <% for (var game of data) { %>
-        <li><%= game.nick%>: <%=game.duration%> min</li>
-        <% } %>
-      </ul>
-     <p class="lead">
-       <a href="https://www.afm-telethon.fr/" target="_blank"  class="btn btn-lg btn-secondary">En savoir plus</a>
-     </p>
-   </main>
+    <main role="main" class="inner cover">
+      <div class="row text-center" style="width:100%;">
+        <div class="col-6">
+          <img src="images/logo_eclair.png" alt="logo d'Éclair" width="200">
+        </div>
+        <div class="col-6">
+          <img src="images/logo_clt.png" alt="logo de CLT" width="200">
+        </div>
+      </div>
+      <h1 class="cover-heading">Vous avez gagné!</h1>
+      <p class="lead">Si vous avez aimé occuper votre confinement avec cet escape game pensez à <a href="https://don.telethon.fr/" target="_blank">faire un don au téléthon !</a></p>
+      <h3 class="cover-heading">Classement des joueurs les plus rapides:</h3>
 
- </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Temp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (var i = 0; i < data.length; i++) {
+            game=data[i]
+            if (game.nick && game.duration && game.nick!="" && game.duration!="") {%>
+              <tr  <%if (game.nick==nick) { %>class="bg-info" <% } %> >
+                <th scope="row"><%=i+1%></th>
+                <td><%- game.nick%></td>
+                <td><%-game.duration%> min</td>
+              </tr>
 
-<script src="/js/end.js" charset="utf-8"></script>
+              <% } %>
 
-</div>
+              <% } %>
+            </tbody>
+          </table>
+          <p class="lead">
+            <a href="https://www.afm-telethon.fr/" target="_blank"  class="btn btn-lg btn-secondary">En savoir plus</a>
+          </p>
+        </main>
+
+      </div>
+
+      <script src="/js/end.js" charset="utf-8"></script>
+
+    </div>
