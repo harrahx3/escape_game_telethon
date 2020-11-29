@@ -9,6 +9,7 @@ var db_mdp;
 var db_usr;
 var mysql = require('mysql'); //package mysql
 var connection;
+var favicon = require('serve-favicon');
 //var url = require(‘url‘);
 
 
@@ -28,7 +29,9 @@ app.use('/css', express.static(path.join(__dirname, 'public', 'css')));
 app.use('/js', express.static(path.join(__dirname, 'public', 'js')));
 app.use('/vendor', express.static(path.join(__dirname, 'public', 'vendor')));
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
-
+app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
+app.use('/favicon.ico', express.static('images/favicon.ico'));
 app.set('view engine', 'ejs');
 
 // Page d'acceuil
@@ -133,7 +136,7 @@ app.post('/check_colloque', function(req,res) {
 	var date = xss(req.body.date);
 	var nom = xss(req.body.nom);
 
-	if ((lieu=="thaïlande" || lieu=='thailande') && date=="01/01/2020") {
+	if ((lieu.toLowerCase()=="thaïlande" || lieu.toLowerCase()=='thailande' || lieu.toLowerCase()=="bangkok") && date=="01/01/2020") {
 		//res.redirect(302, '/part1');
 		var today = new Date();
 		var dd = String(today.getDate()).padStart(2, '0');
@@ -200,17 +203,118 @@ app.get('/siteperso', function(req, res){
 	console.log("get siteperso");
 	ssn = req.session;
 	//	var a= render("home");
-	ejs.renderFile("views/part2.ejs", [], null, function(err, html){
-		// str => Rendered HTML string
-		if (err) {
-			console.log(err);
-			res.sendStatus(500);
-		} else {
-			//console.log(html);
-			console.log("get /siteperso -> part2 ok");
-			res.end(html);
+	var posts_2019= [{
+		date: "02/01/2019",
+		author: {
+			id: 1,
+			avatar: "logo_clt.png",
+			name: "Harrah"
+		},
+		content: "contenu",
+		comments: [{
+			author: {
+				avatar: "logo_clt.png",
+				name: "Harrah"
+			},
+			content: "com"
+		}, {
+			author: {
+				avatar: "logo_eclair.png",
+				name: "Harrah2"
+			},
+			content: "com2"
+		}]
+	}, {
+		date: "01/01",
+		author: {
+			id: 1,
+			avatar: "logo_eclair.png",
+			name: "Harrah2"
+		},
+		content: "contenu 2",
+		comments: [{
+			author: {
+				avatar: "logo_clt.png",
+				name: "Harrah"
+			},
+			content: "com3",
+			date: "01/01/2050"
 		}
-	});
+	]
+}
+];
+
+var posts_2020= [{
+	date: "02/01/2020",
+	author: {
+		id: 1,
+		avatar: "logo_clt.png",
+		name: "Harrah"
+	},
+	content: "contenu",
+	comments: [{
+		author: {
+			avatar: "logo_clt.png",
+			name: "Harrah"
+		},
+		content: "com"
+	}, {
+		author: {
+			avatar: "logo_eclair.png",
+			name: "Harrah2"
+		},
+		content: "com2"
+	}]
+}, {
+	date: "01/01",
+	author: {
+		id: 1,
+		avatar: "logo_eclair.png",
+		name: "Harrah2"
+	},
+	content: "contenu 2",
+	comments: [{
+		author: {
+			avatar: "logo_clt.png",
+			name: "Harrah"
+		},
+		content: "com3",
+		date: "01/01/2050"
+	}
+]
+}
+];
+
+
+ejs.renderFile("views/post.ejs", {posts: posts_2019}, function(err, html_posts_2019){
+	// str => Rendered HTML string
+	if (err) {
+		console.log(err);
+		res.sendStatus(500);
+	} else {
+		ejs.renderFile("views/post.ejs", {posts: posts_2020}, function(err, html_posts_2020){
+			// str => Rendered HTML string
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			} else {
+				//	console.log("get /siteperso -> part2 ok");
+				ejs.renderFile("views/part2.ejs", {posts_2020: html_posts_2020, posts_2019: html_posts_2019}, function(err, html){
+					// str => Rendered HTML string
+					if (err) {
+						console.log(err);
+						res.sendStatus(500);
+					} else {
+						//console.log(html);
+						console.log("get /siteperso -> part2 ok");
+						res.end(html);
+					}
+				});
+			}
+		})
+	}
+});
+
 });
 
 

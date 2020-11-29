@@ -1,0 +1,22 @@
+
+<ul class="list-unstyled">
+
+  <% for (var post of posts) { %>
+
+    <li class="post p-5 m-3">
+      <div class="media">
+        <img src="images/<%=post.author.avatar%>" class="mr-3" width="50em" alt="...">
+        <div class="media-body">
+          <h4 class="mt-0 mb-1"> <%=post.author.name%> </h4>
+          <h6 class="mt-0 mb-1"><%=post.date%></h6>
+        </div>
+      </div>
+      <%=post.content%> <br>
+      <footer class="page-footer font-small blue pt-4">
+        🖒 <%=Math.floor(Math.random()*100)%>
+      </footer>
+    </li>
+    <br>
+
+  <% } %>
+</ul>
