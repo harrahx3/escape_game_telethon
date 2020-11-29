@@ -11,7 +11,7 @@ $("#check_colloque").submit(function(event){
       if ($("#"+response.id).length === 0) {
         $("#chat_ul").append(response.content);
         $("#check_colloque").hide();
-//        $("#login_form_result").html("<div class='alert alert-success' role='alert'>Correct!</div>");
+        //        $("#login_form_result").html("<div class='alert alert-success' role='alert'>Correct!</div>");
       }
       else {
         console.log("already exists");

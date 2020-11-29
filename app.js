@@ -340,26 +340,39 @@ app.post('/login', function(req,res){
 				res.sendStatus(500);
 			} else {
 				console.log("update db ok");
-				connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>1 ORDER BY duration ASC LIMIT 10', function(error_get, results_get){
+				connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>-1 ORDER BY duration ASC LIMIT 10', function(error_get, results_get){
 					if (error_get) {
 						console.log("Erreur base de donnée : " + error_get);
 						res.sendStatus(500);
 					} else {
-						console.log("get db ok");
-						console.log(results_get);
-						ejs.renderFile("views/end.ejs", {data: results_get, nick: xss(ssn.nick)}, function(err, html) {
-							if (err) {
-								console.log(err);
+						connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>-1', [xss(ssn.nick)], function(error_get_current, results_get_current){
+							if (error_get) {
+								console.log("Erreur base de donnée : " + error_get_current);
 								res.sendStatus(500);
 							} else {
-								console.log("html ok");
-								res.json({success : true,
-									id: 'v-pills-end-tab',
-									head: "<a class='nav-link' id='v-pills-end-tab' data-toggle='pill' href='#v-pills-end' role='tab' aria-controls='v-pills-end' aria-selected='false'>Page finale</a>",
-									content: html// "<div class='tab-pane fade' id='v-pills-end' role='tabpanel' aria-labelledby='v-pills-end-tab'><p>The end</p></div>"
+								var nick="?";
+								var time_current="?";
+								if (results_get_current.length!=0) {
+									nick=xss(ssn.nick);
+									time_current = xss(results_get_current[0].duration);
+								}
+								console.log("get db ok");
+								console.log(results_get);
+								ejs.renderFile("views/end.ejs", {data: results_get, nick: xss(ssn.nick), time: time_current}, function(err, html) {
+									if (err) {
+										console.log(err);
+										res.sendStatus(500);
+									} else {
+										console.log("html ok");
+										res.json({success : true,
+											id: 'v-pills-end-tab',
+											head: "<a class='nav-link' id='v-pills-end-tab' data-toggle='pill' href='#v-pills-end' role='tab' aria-controls='v-pills-end' aria-selected='false'>Page finale</a>",
+											content: html// "<div class='tab-pane fade' id='v-pills-end' role='tabpanel' aria-labelledby='v-pills-end-tab'><p>The end</p></div>"
+										});
+									}
 								});
 							}
-						});
+						})
 					}
 				});
 			}

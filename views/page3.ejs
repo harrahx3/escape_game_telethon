@@ -15,66 +15,66 @@
 
     <main role="main" class="inner cover">
       <!--<h1 class="cover-heading">Discution avec Dité</h1>-->
-<div class="chat">
+      <div class="chat">
 
-  <ul class="list-unstyled chat" id="chat_ul">
-    <li class="text-center chat_date">05/12/2050-15:48</li>
-    <br>
+        <ul class="list-unstyled chat" id="chat_ul">
+          <li class="text-center chat_date">05/12/2050-15:48</li>
+          <br>
 
-    <li class="media sent text-right">
-      <div class="media-body " >
-        <h5 class="mt-0 mb-1"> <%=nick%> <img src="images/bulle2.svg" alt=""></h5>
-        Tu te souviens de qui était ce chercheur qui disait pouvoir remonter le temps ?
-      </div>
-    </li>
-    <br>
+          <li class="media sent text-right">
+            <div class="media-body " >
+              <h5 class="mt-0 mb-1"> <%=nick%> <img src="images/bulle2.svg" alt=""></h5>
+              Tu te souviens de qui était ce chercheur qui disait pouvoir remonter le temps ?
+            </div>
+          </li>
+          <br>
 
-    <li class="media received">
-      <div class="media-body">
-        <h5 class="mt-0 mb-1">
-          <img src="images/bulle1.svg" alt=""> Lucie Dité</h5>
-           Désolé <%=nick%> je ne me rappelle plus très bien je me souviens juste que je l'ai rencontré à un colloque où il faisait chaud et humide. <br>
-           Je venais de présenter ma recherche sur la maladie de Lyme à l'époque.
+          <li class="media received">
+            <div class="media-body">
+              <h5 class="mt-0 mb-1">
+                <img src="images/bulle1.svg" alt=""> Lucie Dité</h5>
+                Désolé <%=nick%> je ne me rappelle plus très bien je me souviens juste que je l'ai rencontré à un colloque où il faisait chaud et humide. <br>
+                Je venais de présenter ma recherche sur la maladie de Lyme à l'époque.
+              </div>
+            </li>
+            <br>
+
+            <li class="media sent text-right">
+              <div class="media-body " >
+                <h5 class="mt-0 mb-1"> <%=nick%> <img src="images/bulle2.svg" alt=""></h5>
+                Mais tu te rend compte du nombre de vie qu'on pourrait sauver!
+              </div>
+            </li>
+            <br>
+
+            <li class="media received">
+              <div class="media-body" >
+                <h5 class="mt-0 mb-1" > <img src="images/bulle1.svg" alt=""> Lucie Dité </h5>
+                Si tu peux retrouver quelques informations sur ce colloque je pourrais peut être t'aider.
+                Je  n'ai pas le temps pour le moment mais tu peux fouiller dans mes archives, tu les trouveras sur ce drive: https://drive.google.com/drive/folders/1RJGT0vmlQ30XcG-JKk0-MV-6N3E19O7g?usp=sharing
+              </div>
+            </li>
+            <br>
+
+
+          </ul>
+
+          <form class="text-right" id="check_colloque" method="post" action="/check_colloque">
+            <div class="row align-items-end">
+              <div class="col-md-5">
+              </div>
+              <div class="p-1 col-md-5 border border-secondary">
+                <label for="nom">nom: </label> <input type="text" id="nom"  name="nom"> <br>
+                <label for="date">date: </label> <input type="text" id="date"  name="date"> <br>
+                <label for="lieu">lieu: </label> <input type="text" id="lieu"  name="lieu"> <br>
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary" >Envoyer <img src="images/send.svg" width="20em" height="20em" alt=""> </button>
+              </div>
+            </div>
+          </form>
+
         </div>
-    </li>
-      <br>
-
-      <li class="media sent text-right">
-        <div class="media-body " >
-          <h5 class="mt-0 mb-1"> <%=nick%> <img src="images/bulle2.svg" alt=""></h5>
-          Mais tu te rend compte du nombre de vie qu'on pourrait sauver!
-        </div>
-      </li>
-      <br>
-
-      <li class="media received">
-        <div class="media-body" >
-          <h5 class="mt-0 mb-1" > <img src="images/bulle1.svg" alt=""> Lucie Dité </h5>
-          Si tu peux retrouver quelques informations sur ce colloque je pourrais peut être t'aider.
-          Je  n'ai pas le temps pour le moment mais tu peux fouiller dans mes archives, tu les trouveras sur ce drive:https://drive.google.com/drive/folders/1RJGT0vmlQ30XcG-JKk0-MV-6N3E19O7g?usp=sharing
-        </div>
-      </li>
-      <br>
-
-
-    </ul>
-
-    <form class="text-right" id="check_colloque" method="post" action="/check_colloque">
-      <div class="row align-items-end">
-        <div class="col-md-5">
-        </div>
-      <div class="p-1 col-md-5 border border-secondary">
-        <label for="nom">nom: </label> <input type="text" id="nom"  name="nom"> <br>
-        <label for="date">date: </label> <input type="text" id="date"  name="date"> <br>
-        <label for="lieu">lieu: </label> <input type="text" id="lieu"  name="lieu"> <br>
-      </div>
-      <div class="col-md-2">
-        <button type="submit" class="btn btn-secondary" >Envoyer <img src="images/send.svg" width="20em" height="20em" alt=""> </button>
-      </div>
-    </div>
-    </form>
-
-</div>
 
 
         <div id="result_div"></div>
