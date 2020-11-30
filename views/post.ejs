@@ -11,13 +11,13 @@
 
           <%-post.content%> <br>
           <footer class="page-footer font-small blue pt-4">
-            🖒  <%= post.likes ? post.likes : Math.floor(Math.random()*12)%> personnes
+            <img src="/images/like.svg" width="25em" alt="like">  <%= post.likes ? post.likes : Math.floor(Math.random()*12)%> personnes
           </footer>
 
-          <%  if (post.comment) { %>
+          <%  if (post.comments) { %>
             <ul class="list-unstyled">
-
-              <%= post.comment.length %> commentaires
+              <br>
+              <%= post.comments.length %> commentaires:
 
               <% for (var comment of post.comments) { %>
                 <li class="comment p-2 m-2">

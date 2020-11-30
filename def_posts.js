@@ -31,7 +31,7 @@ module.exports.def_posts = function () {
     date: "05/02/2019",
     author: henri,
     feel: "amusé",
-    content: "J’ai bien partagé le blog à mes amis, salut les copains ! Petite photo du week-end dernier : dîner avec la famille et mon ami de toujours, Damien, pour l’anniversaire de Lola. 18 ans, ça grandit vite ! <br> <img src='images/gateau.png' class='mr-3' width='500em' alt='gâteau d'anniversaire'>",
+    content: "J’ai bien partagé le blog à mes amis, salut les copains 😁! Petite photo du week-end dernier : dîner avec la famille et mon ami de toujours, Damien, pour l’anniversaire de Lola. 18 ans, ça grandit vite ! 🎉 <br> <img src='images/gateau.png' class='mr-3' width='500em' alt='gâteau d'anniversaire'>",
     comments: [{
       author: didi12,
       content: "Merci encore pour le super dîner ! Meilleurs voeux à Lola de ma part !",
@@ -42,7 +42,7 @@ module.exports.def_posts = function () {
   date: "05/02/2019",
   author: henri,
   feel: "content",
-  content: "Bienvenue à tous sur mon blog perso ! Certains d’entre vous me connaissent peut-être du boulot, d’autres pas du tout *rires* Peu importe ! Ce blog va me permettre de partager des petites anecdotes de ma vie, de belles photos, des moments drôles… Stay tuned !",
+  content: "Bienvenue à tous sur mon blog perso 😄! Certains d’entre vous me connaissent peut-être du boulot, d’autres pas du tout *rires* Peu importe ! Ce blog va me permettre de partager des petites anecdotes de ma vie, de belles photos, des moments drôles… Stay tuned !",
 }
 ];
 
