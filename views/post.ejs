@@ -9,33 +9,39 @@
           <h4 class="mt-0 mb-1"> <%=post.author.name%>, <span class="feel"> <%=post.feel%> </span> </h4>
           <h6 class="mt-0 mb-1"><%=post.date%></h6>
 
-          <%=post.content%> <br>
+          <%-post.content%> <br>
           <footer class="page-footer font-small blue pt-4">
             🖒  <%= post.likes ? post.likes : Math.floor(Math.random()*12)%> personnes
           </footer>
 
-          <ul class="list-unstyled">
+          <%  if (post.comment) { %>
+            <ul class="list-unstyled">
 
-            <% for (var comment of post.comments) { %>
-              <li class="comment p-2 m-2">
-                <div class="media mt-3">
-                  <img src="images/<%=comment.author.avatar%>" class="mr-3" width="50em" alt="...">
-                  <div class="media-body">
-                    <h5 class="mt-0 mb-1"> <%=comment.author.name%> </h5>
-                    <h6 class="mt-0 mb-1" > <%=comment.date%></h6>
+              <%= post.comment.length %> commentaires
+
+              <% for (var comment of post.comments) { %>
+                <li class="comment p-2 m-2">
+                  <div class="media mt-3">
+                    <img src="images/<%=comment.author.avatar%>" class="mr-3" width="40em" alt="...">
+                    <div class="media-body">
+                      <h5 class="mt-0 mb-1"> <%=comment.author.name%> </h5>
+                      <h6 class="mt-0 mb-1" > <%=comment.date%></h6>
+                      <%-comment.content%>
+                    </div>
                   </div>
-                </div>
-                <%=comment.content%> <br>
-              </li>
+                  <br>
+                </li>
+                <% } %>
+
+              </ul>
+
               <% } %>
 
-            </ul>
-
+            </div>
           </div>
-        </div>
 
-      </li>
-      <br>
+        </li>
+        <br>
 
-      <% } %>
-    </ul>
+        <% } %>
+      </ul>
