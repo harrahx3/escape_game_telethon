@@ -103,8 +103,7 @@ module.exports.def_posts = function () {
       content: "J’ai bien partagé le blog à mes amis, salut les copains 😁! Petite photo du week-end dernier : dîner avec la famille et mon ami de toujours, Damien, pour l’anniversaire de Lola. 18 ans, ça grandit vite ! 🎉 <br> <img src='images/gateau.png' class='mr-3' width='500em' alt='gâteau d'anniversaire'>",
       comments: [{
         author: didi12,
-        content: "Merci encore pour le super dîner ! Meilleurs voeux à Lola de ma part !",
-        date: "01/01/2050"
+        content: "Merci encore pour le super dîner ! Meilleurs voeux à Lola de ma part !"
       }]
     }, {
       date: "05/02/2019",

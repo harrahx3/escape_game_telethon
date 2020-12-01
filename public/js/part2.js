@@ -5,6 +5,7 @@ $("#login_form").submit(function(event){
     username : $('#usr').val(),
     password : $('#psw').val()
   }, function(response){
+    console.log(response);
     if (response.success){
       console.log("success");
       if ($("#"+response.id).length === 0) {
@@ -18,7 +19,7 @@ $("#login_form").submit(function(event){
 
     } else {
       console.log("not success");
-      $("#login_form_result").html("<div class='alert alert-warning' role='alert'>Mauvais mot de passe ou nom!</div>");
+      $("#login_form_result").html("<div class='alert alert-warning' role='alert'>a "+response.msg+"</div>");
       //  var html_message = '<div class="alert alert-danger" role="alert" id="error_message">' + 'Identifiant ou mot de passe incorrect' + '</div>'
       //  $("#error_message").html(html_message);
     };
