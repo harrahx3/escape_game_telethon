@@ -10,7 +10,7 @@ module.exports.def_posts = function () {
   }
 
   var didi12 = {
-    avatar: "user.svg",
+    avatar: "player.svg",
     name: "didi12"
   }
   var sarahkroch = {
