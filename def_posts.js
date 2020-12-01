@@ -115,6 +115,69 @@ module.exports.def_posts = function () {
   ];
 
   var posts_2020= [{
+      date: "30/11/2020",
+      author: henri,
+      feel: "sérieux",
+      likes: 20,
+      content: "Mes amis, cela fait longtemps que je ne vous ai rien dit ici. J’ai décidé de partir. Nombreux d’entre vous me demanderont “où ?”, mais ce qu’ils ne savent pas c’est qu’ils se trompent de question. Je pars dans un “endroit” où la vie est plus gaie, où je n’aurai pas l’impression qu’il me manque quelque chose. Oui bon, c’est sûr que vous, mes amis, vous allez me manquer, mais vous comprendrez bien que ce n’est pas la même chose.\nJe ne peux pas vous dire exactement ce que je vais faire, tout d’abord parce que je ne le sais pas exactement moi-même, mais surtout parce que vous ne me croirez pas. Dans cette histoire, même mes collègues de travail, même ma famille ne m’a jamais cru. ll n’y a que Damien, mon ami d’enfance, que je salue une dernière fois, et qui m’a toujours soutenu.\nJe pars donc. Prenez soin de vous. J’espère trouver un monde meilleur.",
+      comments: [{
+        author: didi12,
+        content: "Prends soin de toi mon ami. Peut-être à bientôt."
+      }]
+    }, {
+      date: "04/09/2020",
+      author: henri,
+      feel: "triste",
+      likes: 7,
+      content: "Une rentrée sans saveur cette année… Merci pour tous vos messages qui nous touchent. On essaye de garder la tête froide."
+    }, {
+      date: "13/08/2020",
+      author: henri,
+      feel: "inquiet",
+      likes: 9,
+      content: "Malgré les bonnes nouvelles de la dernière fois, au niveau de la famille, ça ne va pas mieux… On fait tout ce qu’on peut ici pour croire à notre bonne étoile mais ça devient difficile…"
+    }, {
+      date: "25/07/2020",
+      author: henri,
+      feel: "heureux",
+      likes: 22,
+      content: "Ça y est, c’est enfin fini !!! Après tant de travail, tant de nuits passées au labo, j’ai enfin fini ! Croyez-le ou non les amis, mais je pense avoir fait la découverte du siècle !!",
+      comments: [{
+        author: didi12,
+        content: "Super fier de toi mon pote ! Je savais que tu y arriverais ! N’oublie pas de dire que tu me connais quand tu recevras ton prix Nobel ;)"
+      },{
+        author: monica_rst,
+        content: "On se demande tous ce que c’est ! À te lire, on a l’impression que tu vas remonter dans le temps ! *rires*"
+      },{
+        author: henri,
+        content : "Tu ne crois pas si bien dire … *rires*"
+      }]
+    }, {
+      date: "18/07/2020",
+      author: henri,
+      feel: "déterminé",
+      likes: 18,
+      content: "Pas de repos d’été pour les scientifiques ! *rires* Je suis presque arrivé au bout de mon projet, plus que quelques détails et ça sera fonctionnel ! <br> <img src='images/livres.png' class='mr-3' width='500em' alt='livres'>",
+    }, {
+      date: "11/05/2020",
+      author: henri,
+      feel: "joyeux",
+      likes: 12,
+      content: "Enfin fini ! Je vais pouvoir aller travailler sur le fameux projet au labo !\nConcernant mon précédent message, ça va un peu mieux, mais rien n’est sûr… On garde espoir.",
+      comments: [{
+        author: didi12,
+        content: "Toutes mes pensées sont tournées vers toi et ta famille Henri !"
+      },{
+        author: monica_rst,
+        content: "Courage, tout va bien se passer!"
+      }]
+    }, {
+      date: "20/04/2020",
+      author: henri,
+      feel: "inquiet",
+      likes: 11,
+      content: "BoMerci à tous ceux qui m’ont envoyé leurs messages de soutien vis à vis de ce qui se passe… C’est un peu difficile mais on s’accroche, bientôt ce ne sera plus qu’un mauvais souvenir !"
+    },{
       date: "15/03/2020",
       author: henri,
       feel: "festif",
@@ -133,7 +196,7 @@ module.exports.def_posts = function () {
       feel: "festif",
       likes: 25,
       content: "Sacrée soirée du nouvel an ! Toujours un plaisir de retrouver ses amis !\nBonne année à tous !<br> <img src='images/nouvel_an.png' class='mr-3' width='500em' alt='nouvel an 2020'>",
-  }
+    }
   ];
 
   posts_2021=[];
