@@ -294,12 +294,12 @@ app.post('/login', function(req,res){
 				res.sendStatus(500);
 			} else {
 				console.log("update db ok");
-				connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>-1 ORDER BY duration ASC LIMIT 10', function(error_get, results_get){
+				connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>1 ORDER BY duration ASC LIMIT 20', function(error_get, results_get){
 					if (error_get) {
 						console.log("Erreur base de donnée : " + error_get);
 						res.sendStatus(500);
 					} else {
-						connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>-1', [xss(ssn.nick)], function(error_get_current, results_get_current){
+						connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>1', [xss(ssn.nick)], function(error_get_current, results_get_current){
 							if (error_get) {
 								console.log("Erreur base de donnée : " + error_get_current);
 								res.sendStatus(500);
