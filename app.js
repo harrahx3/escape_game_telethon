@@ -13,6 +13,37 @@ var favicon = require('serve-favicon');
 var def_posts = require("./def_posts.js");
 //var url = require(‘url‘);
 
+//var personnes = JSON.parse(fs.readFileSync('personnes.json', 'utf8'));
+const https = require('https');
+
+https.get('https://api.namefake.com/french-france', (resp) => {
+  let data = '';
+
+  // A chunk of data has been recieved.
+  resp.on('data', (chunk) => {
+    data += chunk;
+  });
+
+  // The whole response has been received. Print out the result.
+  resp.on('end', () => {
+    console.log(JSON.parse(data).explanation);
+  });
+
+}).on("error", (err) => {
+  console.log("Error: " + err.message);
+});
+
+//$.get('/login', {});
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+//httpGet("https://api.namefake.com/french-france")
+
 
 const path = require('path');
 __dirname = path.resolve();
