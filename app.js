@@ -221,7 +221,7 @@ app.post('/rep_form', function(req,res) {
 	console.log("post rep_form");
 	console.log(req.body);
 	req.body.reponse = xss(req.body.reponse);
-	if (req.body.reponse == "bonne reponse") {
+	if (req.body.reponse == "temps") {
 		res.redirect(302, '/siteperso');
 	} else {
 		req.body.nick = xss(ssn.nick);
