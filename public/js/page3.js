@@ -19,7 +19,7 @@ $("#check_colloque").submit(function(event){
 
     } else {
       console.log("not success");
-      html = "<li class='media received'><div class='media-body'><h5 class='mt-0 mb-1'><img src='images/bulle1.svg' alt=''> Lucie Dité</h5>Ca ne me rappelle rien désolée.</div></li><br>"
+      html = "<li class='media received'><img src='images/scientist_f.svg'  width='40em' alt='...'><div class='media-body'><h5 class='mt-0 mb-1'><img src='images/bulle1.svg' alt=''> Lucie Dité</h5>Ca ne me rappelle rien désolée.</div></li><br>"
       $("#chat_ul").append(html);
       //  var html_message = '<div class="alert alert-danger" role="alert" id="error_message">' + 'Identifiant ou mot de passe incorrect' + '</div>'
       //  $("#error_message").html(html_message);

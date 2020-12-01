@@ -91,7 +91,7 @@ app.get('/', function(req, res){
 });
 
 
-// Demarer une partie
+//  Demarer partie
 app.post('/start', function(req, res) {
 	ssn = req.session;
 	//	var a= render("home");
@@ -200,8 +200,8 @@ app.post('/check_colloque', function(req,res) {
 	}
 });
 
-app.get('/part1', function(req, res) {
-	console.log("get part1");
+app.get('/enigme', function(req, res) {
+	console.log("get enigme");
 	ssn = req.session;
 	ejs.renderFile("views/page4.ejs", [], null, function(err, html){
 		// html => Rendered HTML string
@@ -220,12 +220,12 @@ app.post('/rep_form', function(req,res) {
 	ssn = req.session;
 	console.log("post rep_form");
 	console.log(req.body);
-	req.body.reponse = xss(req.body.reponse);
-	if (req.body.reponse == "temps") {
+	reponse = xss(req.body.reponse);
+	if (reponse.toLowerCase() == "temps" || reponse.toLowerCase() == "le temps") {
 		res.redirect(302, '/siteperso');
 	} else {
 		req.body.nick = xss(ssn.nick);
-		res.redirect(302, '/part1');
+		res.redirect(302, '/enigme');
 	}
 });
 
