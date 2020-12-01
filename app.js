@@ -225,12 +225,26 @@ app.post('/rep_form', function(req,res) {
   console.log(req.body);
   reponse = xss(req.body.reponse);
   if (reponse.toLowerCase() == "temps" || reponse.toLowerCase() == "le temps") {
-    res.redirect(302, '/siteperso');
+    res.redirect(302, '/trans');
   } else {
     req.body.nick = xss(ssn.nick);
     res.redirect(302, '/enigme');
   }
 });
+
+app.get('/trans', function(req, res) {
+  console.log("get enigme");
+  ssn = req.session;
+  ejs.renderFile("views/transition.ejs", [], null, function(err, html){
+    // html => Rendered HTML string
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.end(html);
+    }
+  })
+})
 
 
 // partie 2
