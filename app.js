@@ -359,14 +359,20 @@ app.post('/login', function(req,res){
     res.json({success : false,
       msg: "Votre mot de passe doit contenir uniquement des caractéres alphanumeriques !"
     });
-  } else if (!isAlphanumeric(password)) {
-    res.json({success : false,
-      msg: "Votre mot de passe doit contenir uniquement des caractéres alphanumeriques !"
-    });
-  } else {
-    res.json({success : false,
-      msg: "Mauvais mot de passe !"
-    });
+  }  else {
+    var count_num = 0;
+    for (var car of password) {
+      if (decimal(car)) {count_num+=1;}
+    }
+    if (count_num < 6) {
+      res.json({success : false,
+        msg: "Votre mot de passe doit contenir plus de chiffres !"
+      });
+    } else {
+      res.json({success : false,
+        msg: "Mauvais mot de passe !"
+      });
+    }
   }
 })
 
