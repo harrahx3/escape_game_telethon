@@ -71,7 +71,7 @@ module.exports.def_posts = function () {
       author: henri,
       feel: "penseur",
       likes: 8,
-      content: "Je sais que ce blog est un lieu de partage libre, mais Lola m’a parlé récemment de ce réseau social, Instagram, où on peut poster des photos. J’aime bien la photo, mais je ne sais pas du tout comment ça marche… Des avis ?",
+      content: "Je sais que ce blog est un lieu de partage libre, mais Lola m’a parlé récemment de ce réseau social, <a href='https://www.instagram.com/explore/locations/' rel='noopener' target='_blank'>Instagram</a>, où on peut poster des photos. J’aime bien la photo, mais je ne sais pas du tout comment ça marche… Des avis ?",
       comments: [{
         author: didi12,
         content: "Super idée ça ! Je te suis de suite !"
