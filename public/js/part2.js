@@ -19,7 +19,7 @@ $("#login_form").submit(function(event){
 
     } else {
       console.log("not success");
-      $("#login_form_result").html("<div class='alert alert-warning' role='alert'>a "+response.msg+"</div>");
+      $("#login_form_result").html("<div class='alert alert-warning' role='alert'> Erreur de connection: "+response.msg+"</div>");
       //  var html_message = '<div class="alert alert-danger" role="alert" id="error_message">' + 'Identifiant ou mot de passe incorrect' + '</div>'
       //  $("#error_message").html(html_message);
     };

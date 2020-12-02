@@ -16,25 +16,6 @@ var alphabetical = require('is-alphabetical');
 var decimal = require('is-decimal');
 //var url = require(‘url‘);
 
-//var personnes = JSON.parse(fs.readFileSync('personnes.json', 'utf8'));
-const https = require('https');
-
-https.get('https://api.namefake.com/french-france', (resp) => {
-  let data = '';
-
-  // A chunk of data has been recieved.
-  resp.on('data', (chunk) => {
-    data += chunk;
-  });
-
-  // The whole response has been received. Print out the result.
-  resp.on('end', () => {
-    console.log(JSON.parse(data).explanation);
-  });
-
-}).on("error", (err) => {
-  console.log("Error: " + err.message);
-});
 
 //$.get('/login', {});
 function httpGet(theUrl)
@@ -134,6 +115,8 @@ app.post('/start', function(req, res) {
                 res.sendStatus(500);
               } else {
                 console.log("game add to db");
+                var now= new Date();
+                ssn.initialDate = now.getTime();
                 res.end(html);
               }
             });
@@ -171,7 +154,7 @@ app.post('/check_colloque', function(req,res) {
   var date = xss(req.body.date);
   var nom = xss(req.body.nom);
 
-  if ((lieu.toLowerCase()=="thaïlande" || lieu.toLowerCase()=='thailande' || lieu.toLowerCase()=="bangkok") && date=="01/01/2020") {
+  if ((lieu.toLowerCase()=="thaïlande" || lieu.toLowerCase()=='thailande' || lieu.toLowerCase()=="bangkok") && (date.toLowerCase()=="2046" || date.toLowerCase()=="aout 2046" || date.toLowerCase()=="août 2046" || date.toLowerCase()=="aout2046" || date.toLowerCase()=="août2046")) {
     //res.redirect(302, '/part1');
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -299,50 +282,105 @@ app.post('/login', function(req,res){
   var true_password = "abcd110378";
   if (username == "henriposte" && password == true_password) {
     console.log("end success");
-
-    connection.query('UPDATE games SET end_time=NOW() WHERE nick=?', [xss(ssn.nick)], function(error1, results1) {
-      if (error1) {
-        console.log("Erreur base de donnée : " + error1);
+    var time_current_1 = 0;
+    if (ssn.initialDate) {
+      now = new Date();
+      time_current_1 = Math.round((now.getTime()-ssn.initialDate)/60000);
+    }
+    console.log("time_current_1" + time_current_1);
+    connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>3', [xss(ssn.nick)], function(error_get_current_1, results_get_current_1){
+      if (error_get_current_1) {
+        console.log("Erreur base de donnée : " + error_get_current_1);
         res.sendStatus(500);
       } else {
-        console.log("update db ok");
-        connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>1 ORDER BY duration ASC LIMIT 20', function(error_get, results_get){
-          if (error_get) {
-            console.log("Erreur base de donnée : " + error_get);
-            res.sendStatus(500);
-          } else {
-            connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>1', [xss(ssn.nick)], function(error_get_current, results_get_current){
-              if (error_get) {
-                console.log("Erreur base de donnée : " + error_get_current);
-                res.sendStatus(500);
-              } else {
-                var nick="?";
-                var time_current="?";
-                if (results_get_current.length!=0) {
-                  nick=xss(ssn.nick);
-                  time_current = xss(results_get_current[0].duration);
+        if (results_get_current_1==0) {
+          connection.query('UPDATE games SET end_time=NOW(), time=? WHERE nick=?', [time_current_1, xss(ssn.nick)], function(error1, results1) {
+            if (error1) {
+              console.log("Erreur base de donnée : " + error1);
+              res.sendStatus(500);
+            } else {
+              console.log("update db ok");
+              connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>1 ORDER BY duration ASC LIMIT 20', function(error_get, results_get){
+                if (error_get) {
+                  console.log("Erreur base de donnée : " + error_get);
+                  res.sendStatus(500);
+                } else {
+                  connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>1', [xss(ssn.nick)], function(error_get_current, results_get_current){
+                    if (error_get) {
+                      console.log("Erreur base de donnée : " + error_get_current);
+                      res.sendStatus(500);
+                    } else {
+                      var nick="?";
+                      var time_current=time_current_1;
+                      if (results_get_current.length!=0) {
+                        nick=xss(ssn.nick);
+                        time_current = xss(results_get_current[0].duration);
+                      }
+                      console.log("get db ok");
+                      console.log(results_get);
+                      ejs.renderFile("views/end.ejs", {data: results_get, nick: xss(ssn.nick), time: time_current}, function(err, html) {
+                        if (err) {
+                          console.log(err);
+                          res.sendStatus(500);
+                        } else {
+                          console.log("html ok");
+                          res.json({success : true,
+                            id: 'v-pills-end-tab',
+                            head: "<a class='nav-link' id='v-pills-end-tab' data-toggle='pill' href='#v-pills-end' role='tab' aria-controls='v-pills-end' aria-selected='false'>Page finale</a>",
+                            content: html// "<div class='tab-pane fade' id='v-pills-end' role='tabpanel' aria-labelledby='v-pills-end-tab'><p>The end</p></div>"
+                          });
+                        }
+                      });
+                    }
+                  })
                 }
-                console.log("get db ok");
-                console.log(results_get);
-                ejs.renderFile("views/end.ejs", {data: results_get, nick: xss(ssn.nick), time: time_current}, function(err, html) {
-                  if (err) {
-                    console.log(err);
-                    res.sendStatus(500);
-                  } else {
-                    console.log("html ok");
-                    res.json({success : true,
-                      id: 'v-pills-end-tab',
-                      head: "<a class='nav-link' id='v-pills-end-tab' data-toggle='pill' href='#v-pills-end' role='tab' aria-controls='v-pills-end' aria-selected='false'>Page finale</a>",
-                      content: html// "<div class='tab-pane fade' id='v-pills-end' role='tabpanel' aria-labelledby='v-pills-end-tab'><p>The end</p></div>"
-                    });
+              });
+            }
+          });
+
+        } else {
+
+          console.log("not update db ok");
+          connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>1 ORDER BY duration ASC LIMIT 20', function(error_get, results_get){
+            if (error_get) {
+              console.log("Erreur base de donnée : " + error_get);
+              res.sendStatus(500);
+            } else {
+              connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>1', [xss(ssn.nick)], function(error_get_current, results_get_current){
+                if (error_get) {
+                  console.log("Erreur base de donnée : " + error_get_current);
+                  res.sendStatus(500);
+                } else {
+                  var nick="?";
+                  var time_current=time_current_1;
+                  if (results_get_current.length!=0) {
+                    nick=xss(ssn.nick);
+                    time_current = xss(results_get_current[0].duration);
                   }
-                });
-              }
-            })
-          }
-        });
+                  console.log("get db ok");
+                  console.log(results_get);
+                  ejs.renderFile("views/end.ejs", {data: results_get, nick: xss(ssn.nick), time: time_current}, function(err, html) {
+                    if (err) {
+                      console.log(err);
+                      res.sendStatus(500);
+                    } else {
+                      console.log("html ok");
+                      res.json({success : true,
+                        id: 'v-pills-end-tab',
+                        head: "<a class='nav-link' id='v-pills-end-tab' data-toggle='pill' href='#v-pills-end' role='tab' aria-controls='v-pills-end' aria-selected='false'>Page finale</a>",
+                        content: html// "<div class='tab-pane fade' id='v-pills-end' role='tabpanel' aria-labelledby='v-pills-end-tab'><p>The end</p></div>"
+                      });
+                    }
+                  });
+                }
+              })
+            }
+          });
+
+        }
+
       }
-    });
+    })
   } else if (username!="henriposte") {
     res.json({success : false,
       msg: "Nom d'utilisateur inconnu !"
