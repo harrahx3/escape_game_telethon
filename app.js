@@ -279,7 +279,7 @@ app.post('/login', function(req,res){
   var password = xss(req.body.password);
   console.log(username);
   console.log(password);
-  var true_password = "abcd110378";
+  var true_password = "lola280820";
   if (username == "henriposte" && password == true_password) {
     console.log("end success");
     var time_current_1 = 0;
@@ -288,7 +288,7 @@ app.post('/login', function(req,res){
       time_current_1 = Math.round((now.getTime()-ssn.initialDate)/60000);
     }
     console.log("time_current_1" + time_current_1);
-    connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>3', [xss(ssn.nick)], function(error_get_current_1, results_get_current_1){
+    connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>5', [xss(ssn.nick)], function(error_get_current_1, results_get_current_1){
       if (error_get_current_1) {
         console.log("Erreur base de donnée : " + error_get_current_1);
         res.sendStatus(500);
@@ -300,12 +300,12 @@ app.post('/login', function(req,res){
               res.sendStatus(500);
             } else {
               console.log("update db ok");
-              connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>1 ORDER BY duration ASC LIMIT 20', function(error_get, results_get){
+              connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games HAVING duration>5 ORDER BY duration ASC LIMIT 20', function(error_get, results_get){
                 if (error_get) {
                   console.log("Erreur base de donnée : " + error_get);
                   res.sendStatus(500);
                 } else {
-                  connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>1', [xss(ssn.nick)], function(error_get_current, results_get_current){
+                  connection.query('SELECT nick, start_time, end_time, TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration FROM games WHERE nick=? HAVING duration>5', [xss(ssn.nick)], function(error_get_current, results_get_current){
                     if (error_get) {
                       console.log("Erreur base de donnée : " + error_get_current);
                       res.sendStatus(500);
@@ -405,6 +405,10 @@ app.post('/login', function(req,res){
     if (count_num < 6) {
       res.json({success : false,
         msg: "Votre mot de passe doit contenir plus de chiffres !"
+      });
+    } else if (count_num > 7) {
+      res.json({success : false,
+        msg: "Votre mot de passe doit contenir plus de lettres !"
       });
     } else {
       res.json({success : false,

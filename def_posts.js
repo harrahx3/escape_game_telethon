@@ -78,6 +78,9 @@ module.exports.def_posts = function () {
       }, {
         author: monica_rst,
         content: "Fais attention, le compte @henriposte existe déjà :( Tu vas peut-être devoir retourner ton nom !"
+      }, {
+        author: henri,
+        content: "Dommage, c’est le nom que j’utilise sur tous mes comptes sur les réseaux sociaux :( tant pis, je serai postehenri sur Instagram !)"
       }]
     }, {
       date: "12/04/2019",
@@ -119,7 +122,7 @@ module.exports.def_posts = function () {
       author: henri,
       feel: "sérieux",
       likes: 20,
-      content: "Mes amis, cela fait longtemps que je ne vous ai rien dit ici. J’ai décidé de partir. Nombreux d’entre vous me demanderont “où ?”, mais ce qu’ils ne savent pas c’est qu’ils se trompent de question. Je pars dans un “endroit” où la vie est plus gaie, où je n’aurai pas l’impression qu’il me manque quelque chose. Oui bon, c’est sûr que vous, mes amis, vous allez me manquer, mais vous comprendrez bien que ce n’est pas la même chose.\nJe ne peux pas vous dire exactement ce que je vais faire, tout d’abord parce que je ne le sais pas exactement moi-même, mais surtout parce que vous ne me croirez pas. Dans cette histoire, même mes collègues de travail, même ma famille ne m’a jamais cru. ll n’y a que Damien, mon ami d’enfance, que je salue une dernière fois, et qui m’a toujours soutenu.\nJe pars donc. Prenez soin de vous. J’espère trouver un monde meilleur.",
+      content: "Mes amis, cela fait longtemps que je ne vous ai rien dit ici. J’ai décidé de partir. Nombreux d’entre vous me demanderont “où ?”, mais ce qu’ils ne savent pas c’est qu’ils se trompent de question. Je pars dans un “endroit” où la vie est plus gaie, où je n’aurai pas l’impression qu’il me manque quelque chose. Oui bon, c’est sûr que vous, mes amis, vous allez me manquer, mais vous comprendrez bien que ce n’est pas la même chose.\nJe ne peux pas vous dire exactement ce que je vais faire, tout d’abord parce que je ne le sais pas exactement moi-même, mais surtout parce que vous ne me croirez pas. Dans cette histoire, même mes collègues de travail, même ma famille ne m’a jamais cru. ll n’y a que Damien, mon ami d’enfance, que je salue une dernière fois, et qui m’a toujours soutenu. \n Je ne veux pas laisser mon travail inachevé. J’ai caché dans les archives de mon blog les plans de mon projet, pour que quelqu’un d’assez futé pour trouver le mot de passe puisse y accéder. Pour ceux qui connaissaient mon ancien mot de passe, je l’ai changé récemment, pour laisser celle qui comptait le plus pour moi être la gardienne de ce savoir. \nJe pars donc. Prenez soin de vous. J’espère trouver un monde meilleur.",
       comments: [{
         author: didi12,
         content: "Prends soin de toi mon ami. Peut-être à bientôt."
