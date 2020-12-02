@@ -176,7 +176,7 @@ module.exports.def_posts = function () {
       author: henri,
       feel: "inquiet",
       likes: 11,
-      content: "BoMerci à tous ceux qui m’ont envoyé leurs messages de soutien vis à vis de ce qui se passe… C’est un peu difficile mais on s’accroche, bientôt ce ne sera plus qu’un mauvais souvenir !"
+      content: "Merci à tous ceux qui m’ont envoyé leurs messages de soutien vis à vis de ce qui se passe… C’est un peu difficile mais on s’accroche, bientôt ce ne sera plus qu’un mauvais souvenir !"
     },{
       date: "15/03/2020",
       author: henri,
