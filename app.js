@@ -280,7 +280,7 @@ app.post('/login', function(req,res){
   console.log(username);
   console.log(password);
   var true_password = "lola280820";
-  if (username == "henriposte" && password == true_password) {
+  if (username.toLowerCase() == "henriposte" && password.toLowerCase() == true_password) {
     console.log("end success");
     var time_current_1 = 0;
     if (ssn.initialDate) {
